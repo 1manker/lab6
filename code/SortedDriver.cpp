@@ -61,19 +61,40 @@ getWords(size_t numWords, size_t wordLength, string alphabet)
 double
 mostIsolated(vector<double> & number)
 {
-	// STUB  STUB  STUB
-	return -123.456;
+	double isol = number[0];
+	double diff = number[0] - number[1];
+	for (int i = 0; i < number.size() - 2; i++) {
+		double tempDiff1 = number[i + 1] - number[i];
+		double tempDiff2 = number[i + 2] - number[i + 1];
+		double temp = tempDiff1 > tempDiff2 ? tempDiff2 : tempDiff1;
+		isol = temp > diff ? number[i + 1] : isol;
+		diff = temp > diff ? temp : diff;
+	}
+	double finalDiff = number[number.size() - 1] - number[number.size() - 2];
+	isol = finalDiff > diff ? number[number.size() - 1] : isol;
+	return isol;
 }
 
 
 // pre:  A and B are sorted.
 // post: The number of strings in A that do not occur in B
 //         has been returned.
-int
-unmatched(list<string> & A, list<string> & B)
+int unmatched(list<string> & A, list<string> & B)
 {
-	// STUB  STUB  STUB
-	return -1;
+	int count(0);
+	while (!A.empty()) {
+		if (A.front() == B.front()) {
+			A.pop_front();
+		}
+		else if (A.front() > B.front()) {
+			B.pop_front();
+		}
+		else if (A.front() < B.front()) {
+			A.pop_front();
+			count++;
+		}
+	}
+	return count;
 }
 
 
